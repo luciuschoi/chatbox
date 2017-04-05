@@ -284,7 +284,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         ActionCable.server.broadcast 'chatting_channel', content: @message.content, message_user: @message.user
-        head :ok
+        format.js { head :ok }
       else
         format.html { render :new }
         format.json { render json: @message.errors, status: :unprocessable_entity }
